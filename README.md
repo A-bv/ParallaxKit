@@ -3,6 +3,7 @@
 SwiftUI building blocks for parallax effects on iOS 17+:
 
 - **`StretchyHeader`**: a header that stretches when you pull down, scrolls with a parallax effect, and can show a fading title.
+- **`StretchyHeaderScrollView`**: a full page with a stretchy header and a rounded card that slides over it.
 - **`ParallaxCarousel`**: a horizontal carousel of cards whose image moves in parallax, with snapping and a scale effect on the cards that are not in focus.
 
 ## Installation
@@ -64,6 +65,48 @@ StretchyHeader {
 | `pinsToTop` | `true` | Keeps the top of the image attached to the top of the screen when pulling down. |
 
 `StretchyHeaderTitle` is the title view used by `StretchyHeader(title:subtitle:)`. You can reuse it in a custom overlay and change `fadeOutDistance`.
+
+## StretchyHeaderScrollView
+
+A whole page in one view: a `StretchyHeader` at the top, then a rounded card that overlaps it and holds your content. Anything in `footer` goes after the card, on the page background.
+
+```swift
+import ParallaxKit
+
+StretchyHeaderScrollView(
+    title: "Fly the future",
+    subtitle: "Book a seat in seconds.",
+    headerHeight: 450,
+    cardColor: .white
+) {
+    Image("hero")
+        .resizable()
+        .scaledToFill()
+} content: {
+    Picker("Region", selection: $region) { … }
+        .pickerStyle(.segmented)
+        .padding(.horizontal)
+    ServicesList()
+} footer: {
+    AboutUs()
+}
+.background(.black)
+```
+
+The first element of `content` sits `contentTopPadding` below the rounded edge, so a picker, a logo or a title lines up the same way on every screen.
+
+Use `headerOverlay:` instead of `title:` for your own header overlay. It receives the scroll offset, like `StretchyHeader`.
+
+| Parameter | Default | Effect |
+|---|---|---|
+| `headerHeight` | `400` | Height of the header at rest. |
+| `overlap` | `50` | How far the card slides over the bottom of the header. |
+| `cornerRadius` | `34` | Card corner radius. |
+| `cardColor` | system background | Card color. |
+| `cardMinHeight` | `0` | Minimum card height, useful while the content is loading. |
+| `contentTopPadding` | `34` | Space between the rounded edge and the first element. |
+| `parallaxIntensity`, `pinsToTop` | `0.5`, `true` | Passed to the header, see `StretchyHeader`. |
+| `showsIndicators` | `true` | Shows the vertical scroll indicator. |
 
 ## ParallaxCarousel
 
