@@ -72,9 +72,9 @@ private struct DemoScenery: View {
             Circle()
                 .fill(scenery.sun)
                 .frame(width: 80, height: 80)
-                .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .topTrailing)
+                .offset(x: 70)
+                .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .top)
                 .padding(.top, 60)
-                .padding(.trailing, 50)
 
             Ridge(peaks: Ridge.far)
                 .fill(scenery.farMountains)
