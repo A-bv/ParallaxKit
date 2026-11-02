@@ -10,12 +10,16 @@ struct ParallaxCard<Background: View, Overlay: View>: View {
         containerSize.width - style.cardWidthInset
     }
 
+    private var cardHeight: CGFloat {
+        containerSize.height - style.shadowSpace
+    }
+
     var body: some View {
         GeometryReader { geometry in
             background()
-                .scaleEffect(style.imageScale)
-                .offset(x: -parallaxShift(for: geometry) + style.imageOffset)
-                .frame(width: cardWidth, height: containerSize.height - style.shadowSpace)
+                .frame(width: cardWidth + 2 * style.parallaxDistance, height: cardHeight)
+                .offset(x: parallaxShift(for: geometry))
+                .frame(width: cardWidth, height: cardHeight)
                 .overlay {
                     overlay()
                 }
@@ -29,6 +33,8 @@ struct ParallaxCard<Background: View, Overlay: View>: View {
     }
 
     private func parallaxShift(for geometry: GeometryProxy) -> CGFloat {
-        min(geometry.frame(in: .global).minX, geometry.size.width) * style.parallaxFactor
+        let distanceFromRest = geometry.frame(in: .scrollView(axis: .horizontal)).minX - style.horizontalPadding
+        let progress = distanceFromRest / (cardWidth + style.cardSpacing)
+        return -min(max(progress, -1), 1) * style.parallaxDistance
     }
 }

@@ -19,9 +19,7 @@ public struct ParallaxCarouselStyle {
     public var horizontalPadding: CGFloat
     public var cardWidthInset: CGFloat
     public var cornerRadius: CGFloat
-    public var parallaxFactor: CGFloat
-    public var imageScale: CGFloat
-    public var imageOffset: CGFloat
+    public var parallaxDistance: CGFloat
     public var unfocusedCardScale: CGFloat
     public var shadow: Shadow
     public var shadowSpace: CGFloat
@@ -31,9 +29,7 @@ public struct ParallaxCarouselStyle {
         horizontalPadding: CGFloat = 30,
         cardWidthInset: CGFloat = 85,
         cornerRadius: CGFloat = 15,
-        parallaxFactor: CGFloat = 1,
-        imageScale: CGFloat = 1.08,
-        imageOffset: CGFloat = 40,
+        parallaxDistance: CGFloat = 100,
         unfocusedCardScale: CGFloat = 0.95,
         shadow: Shadow = Shadow(),
         shadowSpace: CGFloat = 30
@@ -42,9 +38,7 @@ public struct ParallaxCarouselStyle {
         self.horizontalPadding = horizontalPadding
         self.cardWidthInset = cardWidthInset
         self.cornerRadius = cornerRadius
-        self.parallaxFactor = parallaxFactor
-        self.imageScale = imageScale
-        self.imageOffset = imageOffset
+        self.parallaxDistance = parallaxDistance
         self.unfocusedCardScale = unfocusedCardScale
         self.shadow = shadow
         self.shadowSpace = shadowSpace
